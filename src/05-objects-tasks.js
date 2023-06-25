@@ -20,8 +20,16 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  this.width = width;
+  this.height = height;
+  return {
+    width: this.width,
+    height: this.height,
+    getArea() {
+      return this.width * this.height;
+    },
+  };
 }
 
 
@@ -35,8 +43,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 
@@ -51,8 +59,10 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const newObj = JSON.parse(json);
+  Object.setPrototypeOf(newObj, proto);
+  return newObj;
 }
 
 
@@ -139,6 +149,71 @@ const cssSelectorBuilder = {
     throw new Error('Not implemented');
   },
 };
+/*  const cssSelectorBuilder = {
+    stringify() {
+        return JSON.stringify(this.selector)
+    },
+    element(value) {
+        if (this.selector) {
+            this.selector = `${this.selector}${value}`
+        } else {
+            this.selector = value;
+        }
+
+         return this;
+    },
+
+    id(value) {
+        if (this.selector) {
+            this.selector = `${this.selector}#${value}`
+        } else {
+            this.selector = `#${value}`;
+        }
+        return this
+    },
+
+    class(value) {
+        if (this.selector) {
+            this.selector = `${this.selector}.${value}`
+        } else {
+            this.selector = `.${value}`;
+        }
+        return this
+    },
+
+    attr(value) {
+        if (this.selector) {
+            this.selector = `${this.selector}[${value}]`
+        } else {
+            this.selector = `[${value}]`;
+        }
+        return this
+    },
+
+    pseudoClass(value) {
+        if (this.selector) {
+            this.selector = `${this.selector}:${value}`
+        } else {
+            this.selector = `:${value}`;
+        }
+        return this
+    },
+
+    pseudoElement(value) {
+        if (this.selector) {
+            this.selector = `${this.selector}::${value}`
+        } else {
+            this.selector = `::${value}`;
+        }
+        return this
+    },
+
+    combine(selector1, combinator, selector2) {
+
+      this.selector = `${selector1.selector}`;
+      return this
+    },
+  }; */
 
 
 module.exports = {
